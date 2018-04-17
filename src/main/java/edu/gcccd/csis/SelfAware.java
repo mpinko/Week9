@@ -30,7 +30,15 @@ public class SelfAware implements Language{
                 String next = scan.nextLine();
                 for(int i = 0; i < ReservedWords.length; i++) {
                     if(next.contains(ReservedWords[i])) {
-                        count++;
+                        int startIndex = next.indexOf(ReservedWords[i]);
+                        int nextSpace = next.indexOf(" ", startIndex);
+                        String inQuestion;
+                        if(nextSpace > 0)
+                            inQuestion = next.substring(startIndex, nextSpace);
+                        else
+                            inQuestion = next.substring(startIndex);
+                        if(inQuestion.equals(ReservedWords[i]))
+                            count++;
                     }
                 }
             }
@@ -48,3 +56,8 @@ public class SelfAware implements Language{
         Files.write(p, message.getBytes(), StandardOpenOption.APPEND);
     }
 }
+//Keyword occurrences: 0
+//Keyword occurrences: 0
+//Keyword occurrences: 4
+//Keyword occurrences: 32
+//Keyword occurrences: 32
