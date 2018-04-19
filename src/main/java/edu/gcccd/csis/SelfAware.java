@@ -26,23 +26,14 @@ public class SelfAware implements Language{
         try{
             File source = new File(sourceFile);
             Scanner scan = new Scanner(source);
-            while(scan.hasNextLine()){
-                String next = scan.nextLine();
+            scan.useDelimiter("\\s");
+            scan.useDelimiter("\\W");
+            while(scan.hasNext()){
+                String next = scan.next();
                 for(int i = 0; i < ReservedWords.length; i++) {
                     if(next.contains(ReservedWords[i])) {
                         int startIndex = next.indexOf(ReservedWords[i]);
-                        int nextSpace = next.indexOf(" ", startIndex);
-                        int nextParentheses = next.indexOf("(", startIndex);
-                        int nextCurly = next.indexOf("{", startIndex);
-                        String inQuestion;
-                        if(nextSpace > 0)
-                            inQuestion = next.substring(startIndex, nextSpace);
-                        else if(nextParentheses > 0)
-                            inQuestion = next.substring(startIndex, nextParentheses);
-                        else if(nextCurly > 0)
-                            inQuestion = next.substring(startIndex, nextCurly);
-                        else
-                            inQuestion = next.substring(startIndex);
+                        String inQuestion = next.substring(startIndex);
                         if(inQuestion.equals(ReservedWords[i]))
                             count++;
                     }
